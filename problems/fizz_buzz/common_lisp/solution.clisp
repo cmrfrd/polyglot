@@ -1,0 +1,16 @@
+
+(defun main (&rest args)
+  (declare (ignore args))
+  (let ((string ""))
+    ;; Loop through numss
+    (loop for i from 1 to 150 do
+	  (if (zerop (mod i 3))
+	      (setf string (concatenate 'string string "fizz")))
+	  (if (zerop (mod i 5))
+	      (setf string (concatenate 'string string "buzz")))
+	  (if (zerop (mod i 7))
+	      (setf string (concatenate 'string string "baz")))
+	  :finally (return string))))
+
+(write-line (main))
+(cl-user::quit)

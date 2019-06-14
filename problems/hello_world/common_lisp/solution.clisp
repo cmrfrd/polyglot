@@ -1,0 +1,7 @@
+
+(defun main (&rest args)
+  (declare (ignore args))
+  (write-line "Hello world!"))
+
+(main)
+(cl-user::quit)
