@@ -1,0 +1,17 @@
+version: 2
+jobs:
+  build:
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: Build and run problems
+          command: make build run
+workflows:
+  version: 2
+  build-master:
+    jobs:
+      - build:
+          filters:
+            branches:
+              only: master
