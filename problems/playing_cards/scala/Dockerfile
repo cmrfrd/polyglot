@@ -9,4 +9,4 @@ RUN sbt update dependencyClasspath
 ADD solution.scala /solution.scala
 RUN ls /scala
 RUN ["bash", "-c", "scalac -cp $(find /root/.ivy2/cache/ -type f -name '*jar' -printf '%p:') solution.scala"]
-CMD ["bash", "-c", "scala solution.Main"]
+CMD ["bash", "-c", "scala solution.Main | grep -v warn"]

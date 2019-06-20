@@ -8,7 +8,7 @@ The goal of this solution is not to come to a singular solution but take advanta
 
 Some of these features include
 
-1. Create a deck of cards and print all sorted spades
+1. Create a deck of cards and print top 5 sorted spades
 2. Shuffle cards and print 5 random cards
 3. Sort a shuffled deck of cards
 4. Compare random cards against eachother by [spades, hearts, clubs, diamonds] in that order

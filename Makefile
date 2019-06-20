@@ -1,3 +1,4 @@
+.NOTPARALLEL:
 
 DOCKER? = docker
 SHELL := /bin/bash
@@ -64,8 +65,11 @@ define docker-build-problem-language
 	@$(eval PROBLEM := $(1))
 	@$(eval LANGUAGE := $(2))
 	@$(eval CONTEXT := $(3))
-	$(info building problem $(PROBLEM) for language $(LANGUAGE) \
-		$(shell docker build -q -t $(PROBLEM)-$(LANGUAGE) $(3)))
+	$(info building problem $(PROBLEM) for language $(LANGUAGE))
+	$(if $(shell docker build -q -t $(PROBLEM)-$(LANGUAGE) $(3) > /dev/null ;\
+		     [ $$? == 0 ] && echo || echo $$? ), \
+	  $(error Unable to build problem $(PROBLEM) for language $(LANGUAGE)), \
+	  $(info ))
 endef
 
 ## Define language builder
@@ -91,3 +95,5 @@ build: $(PROBLEM_LANGUAGE_DIRECTORIES)
 
 run: $(PROBLEM_LANGUAGE_DIRECTORIES)
 	$(foreach PROBLEM_LANGUAGE, $^, $(call docker-mode-problem-language, run, $(shell pwd)/${PROBLEM_LANGUAGE}))
+
+build-run: build run
