@@ -1,4 +1,5 @@
-FROM iflavoursbv/sbt-openjdk-8-alpine:0.13.15
+FROM hseeberger/scala-sbt:8u141-jdk_2.12.3_0.13.16
+USER root
 ENV SBT_VERSION 0.13.15
 ENV DEST_DIR /usr/local
 ENV SBT_HOME ${DEST_DIR}/sbt
@@ -9,10 +10,8 @@ RUN mkdir -p project &&     echo "scalaVersion := \"2.11.8\"" > build.sbt &&    
 ENV SCALA_LINK=http://downloads.typesafe.com/scala/2.11.8/scala-2.11.8.tgz
 RUN mkdir -p /scala &&    wget -O /tmp/scala.tgz     $SCALA_LINK &&    tar -C /scala -zxvf /tmp/scala.tgz && rm /tmp/scala.tgz
 ENV PATH=/scala/scala-2.11.8/bin:$PATH
-WORKDIR /
-ADD build.sbt /build.sbt
+ADD build.sbt /root/build.sbt
 RUN sbt update dependencyClasspath
-ADD solution.scala /solution.scala
-RUN ls /scala
+ADD solution.scala /root/solution.scala
 RUN ["bash", "-c", "scalac -cp $(find /root/.ivy2/cache/ -type f -name '*jar' -printf '%p:') solution.scala"]
-CMD ["bash", "-c", "scala solution.Main | grep -v warn"]
+CMD ["scala", "solution.Main", "|", "grep -v warn"]

@@ -1,4 +1,4 @@
-FROM iflavoursbv/sbt-openjdk-8-alpine:0.13.15
+FROM hseeberger/scala-sbt:8u141-jdk_2.12.3_0.13.16
 ENV SBT_OPTS=""
 ADD solution.scala /solution.scala
 WORKDIR /
